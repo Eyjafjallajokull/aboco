@@ -1,0 +1,10 @@
+/*ul.keeperData {
+	list-style: disc;
+}*/
+ul.keeperData li {
+	padding: 4px 0;
+	width: 100%
+}
+ul.keeperData li + li {
+	border-top: 1px solid #aaa;
+}

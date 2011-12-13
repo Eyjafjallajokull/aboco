@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Aboco</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="public/main.css">
+{% for item in styles %}
+<link rel="stylesheet" href="{{ item }}">
+{% end %}
+
+<script src="public/jquery.js"></script>
+<script src="public/jquery.cookie.js"></script>
+<script src="public/jquery.isotope.min.js"></script>
+<script src="public/smoothie.js"></script>
+<script src="public/main.js"></script>
+{% for item in scripts %}
+<script src="{{ item }}"></script>
+{% end %}
+
+<script>
+var savedConfig = { "core":{{core}}, "widgets": {{widgets}} };
+</script>
+</head>
+<body>
+	<div id="widgetsWrap"></div>
+	
+	<div id="optionsWrap">
+		<label for="optionColumns">Width</label>
+		<select id="optionColumns">
+			<option>0</option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+		</select>
+		<br>
+		<label for="optionSort">Sort by</label>
+		<select id="optionSort">
+			<option>size</option>
+			<option>configOrder</option>
+		</select>
+	</div>
+</body>
+</html>

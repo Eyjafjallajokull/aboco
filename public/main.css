@@ -1,0 +1,179 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+
+body {
+	background: #eaeef3;
+}
+body, table {
+	font: 12px/1.2 Verdana, sans-serif;
+	color: #444;
+}
+
+b { font-weight: bold; }
+
+.tar { text-align: right; }
+
+.statusOk {	color: green; }
+.statusFail { color: red; }
+
+
+#overlay {
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  background: -webkit-radial-gradient(rgba(127, 127, 127, 0.5),
+                                      rgba(127, 127, 127, 0.5) 35%,
+                                      rgba(0, 0, 0, 0.7));
+  display: -webkit-box;
+  padding: 20px;
+  padding-bottom: 130px;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  height: auto;
+  width: auto;
+}
+
+#widgetsWrap {
+	padding: 5px;
+	height: 700px;
+}
+
+.widgetWrap {
+	width: 200px;
+	height: 200px;
+	margin: 5px;
+	padding: 0;
+	border: 1px solid #8FAAD9;
+	border-radius: 0 0 10px 10px;
+	background: #fff;
+	box-shadow: 0 0 20px -20px #bbb;
+}
+
+.widgetWrap:hover {
+	box-shadow: 0 0 20px 0 #bbb;
+}
+
+.widgetWrap h3 {
+	height: 16px;
+	margin: 0;
+	padding: 5px;
+	border-bottom: 1px solid #8FAAD9;
+	color: #000;
+	font-size: 14px;
+  	text-shadow: #fff 1px 1px 0px;
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.72, #bbcee9),
+	    color-stop(0.3, #aabedc)
+	);
+	background-image: -moz-linear-gradient(
+	    center bottom,
+	    #bbcee9,
+	    #aabedc
+	);
+}
+
+.widget {
+	margin: 5px;
+	overflow: auto;
+	height: 164px; /*200-16-10-10*/
+	position: relative;
+}
+
+.doubleWidth { width: 412px; }
+.tripleWidth { width: 624px; }
+
+.autoHeight { height: auto; }
+.doubleHeight { height: 412px; }
+.doubleHeight .widget { height: 376px; /*412-16-10-10*/ }
+.tripleHeight { height: 624px; }
+.tripleHeight .widget { height: 588px; /*624-16-10-10*/ }
+
+
+.widget table {
+	width: 99%;
+}
+.widget table th {
+	color: #333;
+	font-weight: bold;
+	border-bottom:1px solid #ccc;
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.8, #fff),
+	    color-stop(0.0, #eaeaea)
+	);
+	background-image: -moz-linear-gradient(
+	    center top,
+	    #fff,
+	    #eaeaea
+	);
+}
+.widget table tr:nth-child(2n+1) td {
+	background: #f5f5f5;
+}
+.widget table td,.widget table th {
+	padding: 4px;
+}
+.widget table th {
+}
+
+
+.widget::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    padding: 18px;
+    -webkit-border-radius: 1ex
+}
+
+.widget::-webkit-scrollbar-thumb {
+    background-color: rgba(053,057,071,0.3);
+    padding: 8px;
+    width: 8px;
+    height: 8px;
+    -webkit-border-radius: 1ex;
+}
+
+.widget::-webkit-scrollbar-button:start:decrement,pre::-webkit-scrollbar-button:end:increment {
+    display: block;
+    height: 0;width:0;
+}
+
+.widget::-webkit-scrollbar-thumb:vertical, pre::-webkit-scrollbar-thumb:horizontal {
+    height: 3px;
+    width: 3px;
+    margin: 3px;
+}
+
+
+.isotope,
+.isotope .isotope-item {
+  /* change duration value to whatever you like */
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width, box-shadow;
+     -moz-transition-property: height, width, box-shadow;
+          transition-property: height, width, box-shadow;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity, box-shadow;
+     -moz-transition-property:    -moz-transform, opacity, box-shadow;
+          transition-property:         transform, opacity, box-shadow;
+}
+
+#optionsWrap {
+	position:fixed;
+	bottom: 0;
+	right: 0;
+	
+}
