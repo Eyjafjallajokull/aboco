@@ -4,6 +4,14 @@ $(function(){
 });
 
 var WidgetManager = {
+    /**
+     * Widget Chief Officer
+     *
+     * Registers, installs (enables) and renders widgets.
+     * Every widget has to register at startup using function `WidgetManager.register`.
+     * If widget is enabled in configuration it is installed after registering.
+     * Render function is executed at constant intervals, to update measurements.
+     */
 	registeredWidgets: {},
 	installedWidgets: [],
 	
@@ -48,6 +56,12 @@ var WidgetManager = {
 		});
 	},
 	
+	/**
+	 * Register widget
+	 * @param id internal name
+	 * @param title full title, displayed on titlebar
+	 * @param widget Widget object
+	 */
 	register: function(id, title, widget) {
 		widget.id = id;
 		widget.title = title;
@@ -56,12 +70,14 @@ var WidgetManager = {
 		this.install(widget);
 	},
 	
+	/**
+	 * Install widget if it was enabled in configuration
+	 */
 	install: function(widget) {
 		var widgetsConfig = Config.getNamespace('widgets');
-		for (var i=0; i<widgetsConfig.length; i++){
+		for (var i=0, l=widgetsConfig.length; i<l; i++){
 			if (widgetsConfig[i].id == widget.id) {
 				var widget = WidgetManager.registeredWidgets[widgetsConfig[i].id];
-				// This widget might be not yet registred. :(
 				if (!widget) continue;
 				
 				var widgetInstance = jQuery.extend(true, {}, widget);
@@ -73,7 +89,7 @@ var WidgetManager = {
 		
 	},
 	
-
+    
 	allWidgetsLoaded: function() {
 		$('#widgetsWrap').isotope({ 
 	          sortBy : 'configOrder',
@@ -81,6 +97,10 @@ var WidgetManager = {
 		$('#widgetsWrap').isotope( 'reLayout' );
 	},
 	
+	/**
+	 * Update measurements.
+	 * Executes POST request to /update
+	 */
 	renderWidgets: function() {
 		$.ajax({
 			type: 'POST',

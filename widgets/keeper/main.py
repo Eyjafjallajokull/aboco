@@ -1,5 +1,4 @@
 import os
-from subprocess import call
 from core.widget import BaseWidget
 
 class KeeperWidget(BaseWidget):

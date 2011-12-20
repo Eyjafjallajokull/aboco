@@ -10,23 +10,23 @@
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<link rel="stylesheet" href="public/main.css">
-{% for item in styles %}
-<link rel="stylesheet" href="{{ item }}">
-{% end %}
+    <link rel="stylesheet" href="public/main.css">
+    {% for item in styles %}
+    <link rel="stylesheet" href="{{ item }}">
+    {% end %}
 
-<script src="public/jquery.js"></script>
-<script src="public/jquery.cookie.js"></script>
-<script src="public/jquery.isotope.min.js"></script>
-<script src="public/smoothie.js"></script>
-<script src="public/main.js"></script>
-{% for item in scripts %}
-<script src="{{ item }}"></script>
-{% end %}
+    <script src="public/jquery.js"></script>
+    <script src="public/jquery.cookie.js"></script>
+    <script src="public/jquery.isotope.min.js"></script>
+    <script src="public/smoothie.js"></script>
+    <script src="public/main.js"></script>
+    {% for item in scripts %}
+    <script src="{{ item }}"></script>
+    {% end %}
 
-<script>
-var savedConfig = { "core":{{core}}, "widgets": {{widgets}} };
-</script>
+    <script>
+    var savedConfig = { "core":{% raw core %}, "widgets": {% raw widgets %} };
+    </script>
 </head>
 <body>
 	<div id="widgetsWrap"></div>

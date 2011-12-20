@@ -1,5 +1,30 @@
+/* RESET */
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
+
+/* ISOTOPE */
+.isotope,
+.isotope .isotope-item {
+  /* change duration value to whatever you like */
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width, box-shadow;
+     -moz-transition-property: height, width, box-shadow;
+          transition-property: height, width, box-shadow;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity, box-shadow;
+     -moz-transition-property:    -moz-transform, opacity, box-shadow;
+          transition-property:         transform, opacity, box-shadow;
+}
+
+
+/* GLOBAL */
 body {
 	background: #eaeef3;
 }
@@ -16,25 +41,7 @@ b { font-weight: bold; }
 .statusFail { color: red; }
 
 
-#overlay {
-  -webkit-box-align: center;
-  -webkit-box-pack: center;
-  background: -webkit-radial-gradient(rgba(127, 127, 127, 0.5),
-                                      rgba(127, 127, 127, 0.5) 35%,
-                                      rgba(0, 0, 0, 0.7));
-  display: -webkit-box;
-  padding: 20px;
-  padding-bottom: 130px;
-  position: fixed;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 10;
-  height: auto;
-  width: auto;
-}
-
+/* WIDGETS */
 #widgetsWrap {
 	padding: 5px;
 	height: 700px;
@@ -77,22 +84,14 @@ b { font-weight: bold; }
 	);
 }
 
+
+/* WIDGET CONTENTS */
 .widget {
 	margin: 5px;
 	overflow: auto;
 	height: 164px; /*200-16-10-10*/
 	position: relative;
 }
-
-.doubleWidth { width: 412px; }
-.tripleWidth { width: 624px; }
-
-.autoHeight { height: auto; }
-.doubleHeight { height: 412px; }
-.doubleHeight .widget { height: 376px; /*412-16-10-10*/ }
-.tripleHeight { height: 624px; }
-.tripleHeight .widget { height: 588px; /*624-16-10-10*/ }
-
 
 .widget table {
 	width: 99%;
@@ -123,7 +122,6 @@ b { font-weight: bold; }
 .widget table th {
 }
 
-
 .widget::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -150,30 +148,38 @@ b { font-weight: bold; }
     margin: 3px;
 }
 
+.doubleWidth { width: 412px; }
+.tripleWidth { width: 624px; }
 
-.isotope,
-.isotope .isotope-item {
-  /* change duration value to whatever you like */
-  -webkit-transition-duration: 0.8s;
-     -moz-transition-duration: 0.8s;
-          transition-duration: 0.8s;
-}
+.autoHeight { height: auto; }
+.doubleHeight { height: 412px; }
+.doubleHeight .widget { height: 376px; /*412-16-10-10*/ }
+.tripleHeight { height: 624px; }
+.tripleHeight .widget { height: 588px; /*624-16-10-10*/ }
 
-.isotope {
-  -webkit-transition-property: height, width, box-shadow;
-     -moz-transition-property: height, width, box-shadow;
-          transition-property: height, width, box-shadow;
-}
 
-.isotope .isotope-item {
-  -webkit-transition-property: -webkit-transform, opacity, box-shadow;
-     -moz-transition-property:    -moz-transform, opacity, box-shadow;
-          transition-property:         transform, opacity, box-shadow;
-}
-
+/* OPTIONS BAR */
 #optionsWrap {
 	position:fixed;
 	bottom: 0;
 	right: 0;
-	
+}
+
+#overlay {
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  background: -webkit-radial-gradient(rgba(127, 127, 127, 0.5),
+                                      rgba(127, 127, 127, 0.5) 35%,
+                                      rgba(0, 0, 0, 0.7));
+  display: -webkit-box;
+  padding: 20px;
+  padding-bottom: 130px;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  height: auto;
+  width: auto;
 }

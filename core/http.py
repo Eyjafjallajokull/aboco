@@ -6,6 +6,7 @@ from core.config import Config
 rootDir = os.path.abspath('./')
 
 class RootHandler(tornado.web.RequestHandler):
+    ''' Handle requests to / '''
     def get(self):        
         styles = []
         scripts = []
@@ -24,6 +25,7 @@ class RootHandler(tornado.web.RequestHandler):
                     widgets=str(Config().getNamespace('widgets',True)))
 
 class StaticHandler(tornado.web.RequestHandler):
+    ''' Handle requests to static files '''
     def get(self, ignore, ignore2):
         fileName = os.path.abspath(rootDir + os.sep + self.request.path)
         
@@ -35,15 +37,16 @@ class StaticHandler(tornado.web.RequestHandler):
             self.write(open(fileName).read())
 
 class UpdateHandler(tornado.web.RequestHandler):
+    ''' Handle ajax requests '''
     def initialize(self, wm):
         self.wm = wm
     
     def post(self):
         self.write( self.wm.collectData() )
-    
-    
-    
-class AbocoHTTPServer():    
+
+
+class AbocoHTTPServer():
+    ''' Tornado HTTP server wrapper '''
     def __init__(self, wm):
         self.wm = wm
         self.application = tornado.web.Application([
@@ -53,5 +56,6 @@ class AbocoHTTPServer():
         ])
         
     def start(self):
+        ''' start Tornado server '''
         self.application.listen(Config().get('http','port'))
         tornado.ioloop.IOLoop.instance().start()
