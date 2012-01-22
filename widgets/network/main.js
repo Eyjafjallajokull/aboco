@@ -20,36 +20,28 @@
 	
 	w.init = function() {
 		this.ts = {
-				established:new TimeSeries(),
-				close_wait:new TimeSeries(),
-				listen:new TimeSeries(),
+				rx:new TimeSeries(),
+				tx:new TimeSeries()
 		};
 		this.smoothie = new SmoothieChart({
-			grid: { strokeStyle:'rgb(200, 200, 200)', fillStyle:'rgb(255, 255, 255)',
+			grid: { 
+				strokeStyle:'rgb(200, 200, 200)', fillStyle:'rgb(255, 255, 255)',
 				lineWidth: 1, millisPerLine: 250, verticalSections: 6, },
 			labels: { fillStyle:'#444' }
 		});
 		this.smoothie.streamTo(this.$('canvas')[0], 1000);
 
-		this.smoothie.addTimeSeries(this.ts.established,
+		this.smoothie.addTimeSeries(this.ts.rx,
 				{ strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
-		this.smoothie.addTimeSeries(this.ts.listen,
+		this.smoothie.addTimeSeries(this.ts.tx,
 				{ strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.4)', lineWidth:3 });
-		this.smoothie.addTimeSeries(this.ts.close_wait,
-				{ strokeStyle:'rgb(0, 0, 255)', fillStyle:'rgba(0, 0, 255, 0.4)', lineWidth:3 });
 	};
 	
 	w.render = function(data) {
-		data = data.trim().split('\n');
-		var parsed = {}
-		for(var i=0, match; i<data.length; i++) {
-			match = data[i].match(/^\s*(\d+)\s*(.+)\s*$/);
-			parsed[match[2].toLowerCase()] = match[1];
-		}
+		console.log(data);
 		
-		for (ts in this.ts) {
-			this.ts[ts].append(new Date().getTime(), parseInt(parsed[ts.toLowerCase()]))
-		}
+		this.ts.tx.append(new Date().getTime(), data.tx);
+		this.ts.rx.append(new Date().getTime(), data.rx);
 	};
 	
 	$(function(){ 
