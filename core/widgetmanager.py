@@ -11,6 +11,11 @@ from core.config import Config
 # http://stackoverflow.com/questions/1707709/list-all-the-modules-that-are-part-of-a-python-package
 
 class WidgetManager():
+    ''' 
+    Widget Manager
+    
+    Initialize and collect data from widgets.
+    '''
     _widgets = {}
     lastCheck = 0
     cache = None
@@ -19,6 +24,9 @@ class WidgetManager():
         self.loadWidgets()
         
     def loadWidgets(self):
+        '''
+        Find and import all available widgets. 
+        '''
         package=widgets
         for importer, modname, ispkg in pkgutil.walk_packages(path=package.__path__,
                                                           prefix=package.__name__+'.',
@@ -36,6 +44,9 @@ class WidgetManager():
             
             
     def collectData(self):
+        '''
+        Collect data from all enabled widgets.
+        '''
         if self.lastCheck >= time.time()-Config().get('core','updateInterval')+.5 and self.cache != None:
             return self.cache
         

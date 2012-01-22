@@ -6,7 +6,10 @@ from core.config import Config
 from core.widgetmanager import WidgetManager
 
 class Aboco():
+    ''' Main application controller '''
+    
     def __init__(self):
+        ''' initialize whole application '''
         self.initLogging()
         self.initWidgetManager()
         self.initHTTPServer()
