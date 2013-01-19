@@ -21,10 +21,10 @@
 					statusText = 'not running';
 					break;
 				case 1:
-					statusText = 'running 1 instance';
+					statusText = 'running 1 thread';
 					break;
 				default:
-					statusText = 'running '+monitor.status+' instances';
+					statusText = 'running '+monitor.status+' threads';
 					break;
 				}
 				statusOk = monitor.status > 0;
