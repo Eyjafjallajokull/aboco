@@ -116,7 +116,12 @@ var WidgetManager = {
 					var widget = WidgetManager.installedWidgets[i];
 					// This widget might be not registred yet. :(
 					if (!widget) return;
-					widget.render(data[i]);
+                    try {
+					    widget.render(data[i]);
+                    } catch (e) {
+                        widget.renderError();
+                        console.log(e);
+                    }
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
@@ -219,7 +224,10 @@ var Widget = {
 			this._$element = $('#widget'+this.instanceId);
 		}
 		return this._$element.find(selector);
-	}
+	},
+    renderError: function() {
+        this.$('.widget').html('failed to render widget')
+    }
 };
 
 

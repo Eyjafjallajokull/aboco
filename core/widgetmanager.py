@@ -5,7 +5,7 @@ import time
 import inspect
 import sys
 import json
-import time
+import traceback
 from core.config import Config
 
 # http://stackoverflow.com/questions/1707709/list-all-the-modules-that-are-part-of-a-python-package
@@ -62,8 +62,13 @@ class WidgetManager():
                         widget.setConfig( installedWidgetConfig['config'] )
                     except KeyError:
                         pass
-                    
-                    newData.append( widget.collectData() )
+
+                    widgetData = None
+                    try:
+                        widgetData = widget.collectData()
+                    except Exception as e:
+                        logging.error(str(e)+''.join(traceback.format_stack()))
+                    newData.append(widgetData)
                     found = True
             if not found:
                 raise Exception('Unknown widget found in config.')

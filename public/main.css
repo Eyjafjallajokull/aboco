@@ -53,7 +53,7 @@ b { font-weight: bold; }
 	margin: 5px;
 	padding: 0;
 	border: 1px solid #8FAAD9;
-	border-radius: 0 0 10px 10px;
+	border-radius: 0 0 4px 4px;
 	background: #fff;
 	box-shadow: 0 0 20px -20px #bbb;
 }
