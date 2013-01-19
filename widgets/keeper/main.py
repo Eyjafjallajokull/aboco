@@ -8,7 +8,7 @@ class KeeperWidget(BaseWidget):
         result = self.config['monitor']
         for monitor in result:
             if monitor['type'] == 'process':
-                cmd = self.runSystemCommand('ps -o "cmd" -C "%s" -L' % monitor['value'])
+                cmd = self.runSystemCommand('ps -o "cmd" -C "%s" -L | wc -l' % monitor['value'])
                 monitor['status'] = int(cmd)-1
             if monitor['type'] == 'file':
                 if os.path.isfile(monitor['value']):
