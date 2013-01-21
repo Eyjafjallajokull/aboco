@@ -67,7 +67,7 @@ class WidgetManager():
                     try:
                         widgetData = widget.collectData()
                     except Exception as e:
-                        logging.error(str(e)+''.join(traceback.format_stack()))
+                        logging.error(widget.__class__.__name__+': '+str(e)+'\n'+(''.join(traceback.format_stack())))
                     newData.append(widgetData)
                     found = True
             if not found:

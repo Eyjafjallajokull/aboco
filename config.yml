@@ -1,0 +1,33 @@
+core:
+  logging: DEBUG
+  updateInterval: 2
+
+http:
+  threads: 1
+  port: 2468
+  address: 0.0.0.0
+  
+widgets:
+  - {id: ProcessorWidget }
+  - {id: MemoryWidget }
+  - {id: UptimeWidget }
+  - {id: NetworkWidget }
+  - id: KeeperWidget
+    config:
+      title: System monitor
+      monitor:
+        - {type: process, value: sbin/apache }
+        - {type: process, value: quake }
+        - {type: file, value: /not/existing/file }
+        - {type: file, value: /etc/passwd }
+        - {type: command, value: ls }
+        - {type: command, value: ls /not/existing/file }
+  - {id: DisksWidget}
+  - {id: ProcessesWidget}
+  - id: CommanderWidget
+    config:
+      title: Aboco git history
+      command: git log -n 3 --shortstat
+      classes: doubleWidth doubleHeight
+  
+

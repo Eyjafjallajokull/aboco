@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+import yaml
 
 class Config:
     defaults = { 
@@ -18,7 +19,7 @@ class Config:
                                 }
                         }
                 }
-    fileName = 'config.json'
+    fileName = 'config.yml'
     __config = None
     __shared_state = {}
     
@@ -30,13 +31,13 @@ class Config:
     def save(self):
         logging.debug('save config file')
         cf = open(self.fileName, 'w')
-        json.dump(self.__config, cf, indent=2)
+        yaml.dump(self.__config, cf, indent=2)
         cf.close()
         
     def load(self):
         if os.path.isfile(self.fileName):
             cf = file(self.fileName,'r')
-            self.__config = json.load(cf)
+            self.__config = yaml.load(cf)
             cf.close()
             
             self.__config = dict(self.defaults, **self.__config)
