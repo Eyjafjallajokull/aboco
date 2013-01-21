@@ -1,2 +1,2 @@
-.widget.UptimeWidget table { margin-top: 10px; }
-.widget.UptimeWidget table tr:nth-child(2n+1) td { background: transparent; }
+.widget.NetworkWidget table { margin-top: 45px; }
+.widget.NetworkWidget table tr:nth-child(2n+1) td { background: transparent; }

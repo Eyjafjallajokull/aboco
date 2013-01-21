@@ -1,47 +1,27 @@
 (function(){
 	var w = $.extend({}, Widget);
-	/*
-	w.recordTpl = '$2: <span>$1</span><br/>';
-	w.render = function(data) {
-		data = data.split('\n');
-		var html = '';
-		for(var i=0; i<data.length; i++) {
-			html += data[i].replace(/^\s*(\d+)\s*(.+)\s*$/, this.recordTpl);
-		}
-		this.$('.widget').html(html);
-	};*/
-	
-	
-	w.mainTpl = function() {
-		var w = this.$('.widget').width()-2;
-		var h = this.$('.widget').height()-2;
-		return '<canvas width="'+w+'" height="'+h+'"></canvas>';
-	};
+
+    w.mainTpl = '<table width="99%">'+
+        '<tr style="font-size:20px"><td id="networkDataUp" align="right" width="50%">0<td><td>kbps</td>'+
+        '<tr style="font-size:20px"><td id="networkDataDown" align="right">0<td><td>kbps</td></table>';
 	
 	w.init = function() {
-		this.ts = {
-				rx:new TimeSeries(),
-				tx:new TimeSeries()
-		};
-		this.smoothie = new SmoothieChart({
-			grid: { 
-				strokeStyle:'rgb(200, 200, 200)', fillStyle:'rgb(255, 255, 255)',
-				lineWidth: 1, millisPerLine: 250, verticalSections: 6, },
-			labels: { fillStyle:'#444' }
-		});
-		this.smoothie.streamTo(this.$('canvas')[0], 1000);
-
-		this.smoothie.addTimeSeries(this.ts.rx,
-				{ strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
-		this.smoothie.addTimeSeries(this.ts.tx,
-				{ strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.4)', lineWidth:3 });
+        this.tx = this.rx = null;
 	};
 	
 	w.render = function(data) {
-		console.log(data);
-		
-		this.ts.tx.append(new Date().getTime(), data.tx);
-		this.ts.rx.append(new Date().getTime(), data.rx);
+        data = data.split(' ');
+        var rx = parseInt(data[0]),
+            tx = parseInt(data[1]),
+            crx, ctx;
+        if (this.tx !== null) {
+            crx = Math.round(Math.abs(this.rx - rx)*8/1000);
+            ctx = Math.round(Math.abs(this.tx - tx)*8/1000);
+            this.$('#networkDataDown').text(crx);
+            this.$('#networkDataUp').text(ctx);
+        }
+        this.tx = tx;
+        this.rx = rx;
 	};
 	
 	$(function(){ 

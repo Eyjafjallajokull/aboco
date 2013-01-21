@@ -11,7 +11,9 @@ widgets:
   - {id: ProcessorWidget }
   - {id: MemoryWidget }
   - {id: UptimeWidget }
-  - {id: NetworkWidget }
+  - id: NetworkWidget
+    config:
+      interface: eth0
   - id: KeeperWidget
     config:
       title: System monitor
