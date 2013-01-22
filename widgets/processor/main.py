@@ -3,7 +3,8 @@ from core.widget import BaseWidget
 class ProcessorWidget(BaseWidget):
     cores = 1
     
-    def __init__(self):
+    def __init__(self, config={}):
+        super(ProcessorWidget, self).__init__(config)
         self.cores = int(self.runSystemCommand('cat /proc/cpuinfo | grep processor | wc -l'))
         
     def collectData(self):

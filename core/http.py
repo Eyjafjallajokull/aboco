@@ -6,6 +6,9 @@ from core.config import Config
 rootDir = os.path.abspath('./')
 
 class RootHandler(tornado.web.RequestHandler):
+    def initialize(self, wm):
+        self.wm = wm
+
     ''' Handle requests to / '''
     def get(self):        
         styles = []
@@ -22,7 +25,7 @@ class RootHandler(tornado.web.RequestHandler):
                     styles=styles, 
                     scripts=scripts,
                     core=str(Config().getNamespace('core',True)),
-                    widgets=str(Config().getNamespace('widgets',True)))
+                    widgets=self.wm.getConfig())
 
 class StaticHandler(tornado.web.RequestHandler):
     ''' Handle requests to static files '''
@@ -50,7 +53,7 @@ class AbocoHTTPServer():
     def __init__(self, wm):
         self.wm = wm
         self.application = tornado.web.Application([
-            (r"/", RootHandler),
+            (r"/", RootHandler, dict(wm=wm)),
             (r"^/(public|widgets)/.*?(js|css|png)$", StaticHandler),
             (r"^/update$", UpdateHandler, dict(wm=wm) )
         ])

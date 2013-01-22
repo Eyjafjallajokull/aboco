@@ -1,17 +1,20 @@
 from subprocess import Popen, PIPE
 
-class BaseWidget():
-    ''' 
+class BaseWidget(object):
+    '''
     Base widget class
-    
+
     All widgets must inherit from this class.
     '''
-    
-    name = 'BaseWidget'
+
     config = {}
-    
-    def __init__(self):
-        pass
+
+    @property
+    def name(self):
+        return self.__class__.__name__
+
+    def __init__(self, config={}):
+        self.config = config
     
     def setConfig(self, config):
         self.config = config

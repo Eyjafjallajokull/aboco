@@ -1,3 +1,4 @@
+import re
 import widgets
 import pkgutil
 import logging
@@ -7,6 +8,7 @@ import sys
 import json
 import traceback
 from core.config import Config
+import hashlib
 
 # http://stackoverflow.com/questions/1707709/list-all-the-modules-that-are-part-of-a-python-package
 
@@ -17,11 +19,13 @@ class WidgetManager():
     Initialize and collect data from widgets.
     '''
     _widgets = {}
+    _installed = {}
     lastCheck = 0
     cache = None
     
     def __init__(self):
         self.loadWidgets()
+        self.initWidgets()
         
     def loadWidgets(self):
         '''
@@ -33,16 +37,30 @@ class WidgetManager():
                                                           onerror=lambda x: None):
             if modname.endswith('.main') and not ispkg:
                 newModule = __import__(modname, globals(), locals(), 'dummy')
-                className = inspect.getmembers(sys.modules[modname], inspect.isclass)[1][0]
+                classes = inspect.getmembers(sys.modules[modname], inspect.isclass)
+                for (className, _) in classes:
+                    if className.endswith('Widget') and className != 'BaseWidget':
+                        logging.debug("Found widget %s" % className)
+                        self._widgets[className] = getattr(newModule, className)
+                        break
                 
-                if className.endswith('Widget') and len(className)>len('Widget'):
-                    self._widgets[className] = newModule
-                    logging.debug("Found widget %s" % className)
-                
-        for widgetId, widget in self._widgets.items():
-            self._widgets[widgetId] = getattr(widget, widgetId)()
-            
-            
+    def initWidgets(self):
+        widgetConfigs = Config().getNamespace('widgets')
+        for i in range(len(widgetConfigs)):
+            widgetConfig = widgetConfigs[i]
+            found = False
+            for widgetId, widget in self._widgets.items():
+                if widgetConfig['id'] == widgetId:
+                    found = True
+                    hash = hashlib.md5(widgetId+str(time.time())).digest().encode("base64")
+                    hash = re.sub(r'\W+', '', hash)[0:4]
+                    try:
+                        self._installed[hash] = self._widgets[widgetId](widgetConfig['config'])
+                    except KeyError:
+                        self._installed[hash] = self._widgets[widgetId]()
+            if not found:
+                raise Exception('Unknown widget found in config: '+widgetConfig['id'])
+
     def collectData(self):
         '''
         Collect data from all enabled widgets.
@@ -50,29 +68,21 @@ class WidgetManager():
         if self.lastCheck >= time.time()-Config().get('core','updateInterval')+.5 and self.cache != None:
             return self.cache
         
-        newData = []
-        installedWidgets = Config().getNamespace('widgets')
-        for widgetInstanceId in range(len(installedWidgets)):
-            installedWidgetConfig = installedWidgets[widgetInstanceId]
-            
-            found = False
-            for widgetId, widget in self._widgets.items():
-                if installedWidgetConfig['id'] == widgetId:
-                    try:
-                        widget.setConfig( installedWidgetConfig['config'] )
-                    except KeyError:
-                        pass
+        newData = {}
+        for widgetId, widget in self._installed.items():
+            widgetData = None
+            try:
+                widgetData = widget.collectData()
+            except Exception as e:
+                logging.error(widget.name+': '+str(e)+'\n'+(''.join(traceback.format_stack())))
+            newData[widgetId] = widgetData
 
-                    widgetData = None
-                    try:
-                        widgetData = widget.collectData()
-                    except Exception as e:
-                        logging.error(widget.__class__.__name__+': '+str(e)+'\n'+(''.join(traceback.format_stack())))
-                    newData.append(widgetData)
-                    found = True
-            if not found:
-                raise Exception('Unknown widget found in config.')
-            
         self.lastCheck = time.time()
         self.cache = json.dumps(newData)
         return self.cache
+
+    def getConfig(self):
+        config = {}
+        for (id, widget) in self._installed.items():
+            config[id] = { 'id': widget.name, 'config': widget.config }
+        return config

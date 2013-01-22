@@ -1,0 +1,2 @@
+.widget.RequestsWidget table { margin-top: 55px; }
+.widget.RequestsWidget table tr:nth-child(2n+1) td { background: transparent; }

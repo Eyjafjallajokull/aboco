@@ -14,6 +14,9 @@ widgets:
   - id: NetworkWidget
     config:
       interface: eth0
+  - id: RequestsWidget
+    config:
+      file: /var/log/nginx/access.log
   - id: KeeperWidget
     config:
       title: System monitor

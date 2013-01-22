@@ -48,30 +48,29 @@ var WidgetManager = {
 		widget.id = id;
 		widget.title = title;
 		this.registeredWidgets[id] = widget;
-		
+
 		this.install(widget);
 	},
-	
+
 	/**
 	 * Install widget if it was enabled in configuration
 	 */
 	install: function(widget) {
-		var widgetsConfig = Config.getNamespace('widgets');
-		for (var i=0, l=widgetsConfig.length; i<l; i++){
-			if (widgetsConfig[i].id == widget.id) {
-				var widget = WidgetManager.registeredWidgets[widgetsConfig[i].id];
+		var widgetConfigs = Config.getNamespace('widgets');
+		for (var id in widgetConfigs){
+			if (widgetConfigs.hasOwnProperty(id) && widgetConfigs[id].id == widget.id) {
+				var widget = WidgetManager.registeredWidgets[widgetConfigs[id].id];
 				if (!widget) continue;
-				
+
 				var widgetInstance = jQuery.extend(true, {}, widget);
-				widgetInstance._init(widgetsConfig[i].config, i);
-				this.installedWidgets[i] = widgetInstance;
-				
+				widgetInstance._init(widgetConfigs[id].config, id);
+				this.installedWidgets[id] = widgetInstance;
 			}
 		}
-		
+
 	},
-	
-    
+
+
 	allWidgetsLoaded: function() {
 		$('#widgetsWrap').isotope({ 
 	          sortBy : 'configOrder',
@@ -92,18 +91,23 @@ var WidgetManager = {
 			success: function(data) {
 				data = JSON.parse(data);
 				if (Config.get('core', 'logging')=='DEBUG')
-					console.log({'server_sent_this':data});
+					console.log('dataUpdate', data);
 				//var widgetsConfig = Config.getNamespace('widgets');
-				for(var i=0; i<data.length; i++) {
-					var widget = WidgetManager.installedWidgets[i];
-					// This widget might be not registred yet. :(
-					if (!widget) return;
-                    try {
-					    widget.render(data[i]);
-                    } catch (e) {
-                        widget.renderError();
-                        console.log(e);
-                    }
+				for (var widgetId in data) {
+					if (data.hasOwnProperty(widgetId)) {
+						var widget = WidgetManager.installedWidgets[widgetId],
+							widgetData = data[widgetId];
+						// This widget might be not registred yet. :(
+						if (!widget) {
+							continue;
+						}
+						try {
+							widget.render(widgetData);
+						} catch (e) {
+							widget.renderError();
+							console.log(e.stack);
+						}
+					}
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
