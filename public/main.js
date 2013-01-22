@@ -13,7 +13,7 @@ var WidgetManager = {
      * Render function is executed at constant intervals, to update measurements.
      */
 	registeredWidgets: {},
-	installedWidgets: [],
+	installedWidgets: {},
 	
 	init: function() {
 		this.renderWidgets();
@@ -68,14 +68,15 @@ var WidgetManager = {
 			}
 		}
 
+		if (Object.keys(Config.getNamespace('widgets')).length == Object.keys(WidgetManager.installedWidgets).length)
+			WidgetManager.allWidgetsLoaded();
 	},
 
 
 	allWidgetsLoaded: function() {
-		$('#widgetsWrap').isotope({ 
-	          sortBy : 'configOrder',
-	          sortAscending : 'asc'});
-		$('#widgetsWrap').isotope( 'reLayout' );
+		setTimeout(function(){
+			$('#widgetsWrap').isotope( 'reLayout' );
+		}, 100);
 	},
 	
 	/**
@@ -168,7 +169,6 @@ var Config = {
 };
 
 
-
 var Widget = {
 	id: "BaseWidget",
 	instanceId: null,
@@ -192,13 +192,9 @@ var Widget = {
 		if (typeof this.mainTpl == 'string')
 			this.$('.widget').html(this.mainTpl);
 		else if (typeof this.mainTpl == 'function')
-			this.$('.widget').html(this.mainTpl()); 
-		
-		if (Config.getNamespace('widgets').length == WidgetManager.installedWidgets.length)
-			WidgetManager.allWidgetsLoaded();
-		
+			this.$('.widget').html(this.mainTpl());
+
 		this.init();
-        $('#widgetsWrap').isotope( 'reLayout');
 	},
 	init: function() {
 		

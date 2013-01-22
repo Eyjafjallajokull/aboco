@@ -10,7 +10,6 @@ http:
 widgets:
   - {id: ProcessorWidget }
   - {id: MemoryWidget }
-  - {id: UptimeWidget }
   - id: NetworkWidget
     config:
       interface: eth0
@@ -34,5 +33,6 @@ widgets:
       title: Aboco git history
       command: git log -n 3 --shortstat
       classes: doubleWidth doubleHeight
+  - {id: HostInfoWidget }
   
 

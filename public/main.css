@@ -40,6 +40,19 @@ b { font-weight: bold; }
 .statusOk {	color: green; }
 .statusFail { color: red; }
 
+#hostInfo {
+    background: #333333;
+    color: #aaa;
+    box-shadow: 0 0 8px 0 #666;
+    padding: 2px;
+    height: 15px;
+}
+#hostInfo li {
+    float: left;
+    list-style: none;
+    margin-right: 30px;
+}
+
 
 /* WIDGETS */
 #widgetsWrap {
