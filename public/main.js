@@ -32,27 +32,9 @@ var WidgetManager = {
 				configOrder : function( $elem ) {
 					return parseInt($elem.attr('id').substr(6));
 				}
-			}
-		});
-
-		$('#optionColumns').change(function(){
-			var v = $(this).val();
-			$.cookies.set('optionColumns', v);
-			console.log(v)
-			v *= 100;
-			
-			$('#widgetsWrap').css('margin','0 '+v+'px');
-			$(window).resize(); // force isotope refresh
-		});
-		$('#optionSort').change(function(){
-			var v = $(this).val();
-			$.cookies.set('optionSort', v);
-			console.log(v)
-
-			$('#widgetsWrap').isotope({ 
-		          sortBy : v,
-		          sortAscending : 'asc'});
-			$('#widgetsWrap').isotope( 'reLayout' );
+			},
+			sortBy : 'configOrder',
+			sortAscending : 'asc'
 		});
 	},
 	
