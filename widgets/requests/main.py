@@ -17,7 +17,8 @@ class RequestsWidget(BaseWidget):
         self.readerProcess.start()
 
     def __del__(self):
-        self.readerProcess.terminate()
+        if self.readerProcess:
+            self.readerProcess.terminate()
 
     def collectData(self):
         if self.fileError:
