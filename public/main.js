@@ -212,6 +212,7 @@ var Widget = {
 			WidgetManager.allWidgetsLoaded();
 		
 		this.init();
+        $('#widgetsWrap').isotope( 'reLayout');
 	},
 	init: function() {
 		
