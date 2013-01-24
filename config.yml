@@ -32,7 +32,7 @@ widgets:
     config:
       title: Aboco git history
       command: git log -n 3 --shortstat
-      classes: doubleWidth doubleHeight
+    tags: [ doubleWidth, doubleHeight ]
   - {id: HostInfoWidget }
   
 

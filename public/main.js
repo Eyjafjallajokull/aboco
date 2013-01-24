@@ -58,12 +58,15 @@ var WidgetManager = {
 	install: function(widget) {
 		var widgetConfigs = Config.getNamespace('widgets');
 		for (var id in widgetConfigs){
-			if (widgetConfigs.hasOwnProperty(id) && widgetConfigs[id].id == widget.id) {
-				var widget = WidgetManager.registeredWidgets[widgetConfigs[id].id];
+			var widgetConfig = widgetConfigs[id];
+			if (widgetConfigs.hasOwnProperty(id) && widgetConfig.id == widget.id) {
+				var widget = WidgetManager.registeredWidgets[widgetConfig.id];
 				if (!widget) continue;
 
 				var widgetInstance = jQuery.extend(true, {}, widget);
-				widgetInstance._init(widgetConfigs[id].config, id);
+				widgetInstance.setConfig(widgetConfig.config);
+				widgetInstance.setTags(widgetConfig.tags);
+				widgetInstance._init(id);
 				this.installedWidgets[id] = widgetInstance;
 			}
 		}
@@ -174,20 +177,26 @@ var Widget = {
 	instanceId: null,
 	title: "Base",
 	mainTpl: '',
+	config: {},
+	tags: [],
 	_$element: null,
 	baseTemplate: function() {
+		var tags = this.tags.map(function(i){return 'tag-'+i;});
 		return '<div id="widget'+this.instanceId+'" class="'+
-			this.id+'Wrap widgetWrap'+(this.classes?' '+this.classes:'')+'">'+
+			this.id+'Wrap widgetWrap '+tags.join(' ')+'">'+
 			'<h3>'+this.title+'</h3>'+
 			'<div class="'+this.id+' widget"></div></div>';
 	},
 	config: {},
-	_init: function(config, instanceId) {
-		this.config = config;
+	setConfig: function(config){ this.config = config; },
+	setTags: function(tags){ this.tags = tags; },
+	_init: function(instanceId) {
 		this.instanceId = instanceId;
 		
 		var newItem = $(this.baseTemplate());
-		$('#widgetsWrap').isotope( 'insert', newItem );
+		if (this.tags.indexOf('customWidget')===-1) {
+			$('#widgetsWrap').isotope( 'insert', newItem );
+		}
 		
 		if (typeof this.mainTpl == 'string')
 			this.$('.widget').html(this.mainTpl);

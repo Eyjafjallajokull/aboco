@@ -1,6 +1,7 @@
 from core.widget import BaseWidget
 
 class MemoryWidget(BaseWidget):
+    tags = [ 'system' ]
     def collectData(self):
         meminfo = file('/proc/meminfo', 'r')
         total = meminfo.readline()[0:-4]

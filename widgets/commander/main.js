@@ -8,9 +8,6 @@
 			this.$('h3').text(this.config.title)
 		else
 			this.$('h3').text(this.config.command)
-
-		if (this.config.classes)
-			this.$().addClass(this.config.classes);
 	};
 	
 	w.render = function(data) {

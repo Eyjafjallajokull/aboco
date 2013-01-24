@@ -8,16 +8,20 @@ class BaseWidget(object):
     '''
 
     config = {}
+    tags = []
 
     @property
     def name(self):
         return self.__class__.__name__
 
     def __init__(self, config={}):
-        self.config = config
+        self.setConfig(config)
     
     def setConfig(self, config):
         self.config = config
+
+    def setTags(self, tags):
+        self.tags = tags
     
     def collectData(self):
         ''' 

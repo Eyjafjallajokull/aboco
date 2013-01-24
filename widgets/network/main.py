@@ -1,6 +1,7 @@
 from core.widget import BaseWidget
 
 class NetworkWidget(BaseWidget):
+    tags = [ 'system' ]
     prevValues = {'rx':0, 'tx':0}
     
     def collectData(self):

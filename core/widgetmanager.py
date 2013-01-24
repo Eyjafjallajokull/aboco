@@ -58,6 +58,9 @@ class WidgetManager():
                         self._installed[hash] = self._widgets[widgetId](widgetConfig['config'])
                     except KeyError:
                         self._installed[hash] = self._widgets[widgetId]()
+                    try:
+                        self._installed[hash].setTags(widgetConfig['tags'])
+                    except KeyError: pass
             if not found:
                 raise Exception('Unknown widget found in config: '+widgetConfig['id'])
 
@@ -84,5 +87,5 @@ class WidgetManager():
     def getConfig(self):
         config = {}
         for (id, widget) in self._installed.items():
-            config[id] = { 'id': widget.name, 'config': widget.config }
+            config[id] = { 'id': widget.name, 'config': widget.config, 'tags': widget.tags }
         return config

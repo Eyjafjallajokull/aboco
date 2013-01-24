@@ -1,6 +1,7 @@
 from core.widget import BaseWidget
 
 class ProcessorWidget(BaseWidget):
+    tags = [ 'system' ]
     cores = 1
     
     def __init__(self, config={}):

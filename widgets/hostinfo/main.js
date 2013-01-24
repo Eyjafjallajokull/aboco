@@ -6,7 +6,7 @@
 	}
 
 	w.render = function(data) {
-		this.$().remove();
+		//this.$().remove();
 		var html = '';
 		html += '<li>'+data['uname']+'</li>';
 		html += '<li>'+data['date']+'</li>';
