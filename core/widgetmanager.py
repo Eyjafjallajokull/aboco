@@ -26,6 +26,7 @@ class WidgetManager():
     def __init__(self):
         self.loadWidgets()
         self.initWidgets()
+        self.interval = Config().get('core','updateInterval')+.5
         
     def loadWidgets(self):
         '''
@@ -68,7 +69,7 @@ class WidgetManager():
         '''
         Collect data from all enabled widgets.
         '''
-        if self.lastCheck >= time.time()-Config().get('core','updateInterval')+.5 and self.cache != None:
+        if self.lastCheck >= time.time()-self.interval and self.cache != None:
             return self.cache
         
         newData = {}
