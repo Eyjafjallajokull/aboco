@@ -171,7 +171,7 @@ b { font-weight: bold; }
 .tag-tripleHeight .widget { height: 588px; /*624-16-10-10*/ }
 
 .tag-system {
-    border: 1px solid #b0bfd9;
+    border: 1px solid #bec4cf;
 }
 .tag-system h3 {
     background-image: -webkit-gradient(
@@ -184,7 +184,7 @@ b { font-weight: bold; }
     background-image: -moz-linear-gradient(
         center bottom, #d3dce8, #c1ccdb
     );
-    border-bottom: 1px solid #b0bfd9;
+    border-bottom: 1px solid #bec4cf;
 }
 
 
