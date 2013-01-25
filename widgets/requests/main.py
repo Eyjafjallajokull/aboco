@@ -1,3 +1,4 @@
+import time
 from core.widget import BaseWidget
 import os
 from multiprocessing import Process, Value
@@ -11,6 +12,7 @@ class RequestsWidget(BaseWidget):
             return
 
         file = open(self.config['file'])
+        file.seek(0, os.SEEK_END)
         self.lines = Value('i', 0)
         self.readerProcess = Process(target=reader, args=(self.lines, file))
         self.readerProcess.start()
@@ -29,5 +31,5 @@ class RequestsWidget(BaseWidget):
 
 def reader(lines, stream):
     while True:
-        if stream.readline():
-            lines.value += 1
+        lines.value += len(stream.readlines())
+        time.sleep(0.1)
