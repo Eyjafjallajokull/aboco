@@ -6,9 +6,8 @@ class RequestsWidget(BaseWidget):
 
     def __init__(self, config={}):
         super(RequestsWidget, self).__init__(config)
-
-        if not os.path.exists(self.config['file']):
-            self.fileError = True
+        self.fileError = not os.path.exists(self.config['file'])
+        if self.fileError:
             return
 
         file = open(self.config['file'])
