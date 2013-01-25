@@ -3,6 +3,7 @@
 
 	w.init = function() {
 		this.hostInfoEl = $('#hostInfo');
+		this.setTitle = true;
 	}
 
 	w.render = function(data) {
@@ -12,6 +13,11 @@
 		html += '<li>'+data['date']+'</li>';
 		html += '<li>'+parseUptime(data['uptime'])+'</li>';
 		this.hostInfoEl.html(html);
+
+		if (this.setTitle) {
+			$('title').prepend(data['uname'].split(' ')[1]+' - ');
+			this.setTitle = false;
+		}
 	};
 
 	function two(x) {return ((x>9)?"":"0")+x}
