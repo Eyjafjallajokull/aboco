@@ -16,9 +16,20 @@ class Aboco():
         
     def initLogging(self):
         logLevel = logging._levelNames.get(Config().get('core','logging'))
-        logging.basicConfig(format='%(asctime)s %(levelname)s > %(message)s',
-                            datefmt='%Y/%m/%d %H:%M:%S',
-                            level=logLevel)
+
+        rawFormatter = logging.Formatter('%(asctime)s;%(levelname)s;%(message)s')
+        prettyFormatter = logging.Formatter('%(message)s')
+        stdoutHandler = logging.StreamHandler(sys.stdout)
+        stdoutHandler.setFormatter(prettyFormatter)
+        fileHandler = logging.FileHandler('aboco.log')
+        fileHandler.setFormatter(rawFormatter)
+        logging.root.setLevel(logLevel)
+        logging.root.addHandler(stdoutHandler)
+        logging.root.addHandler(fileHandler)
+
+#        logging.basicConfig(format='%(asctime)s %(levelname)s > %(message)s',
+#                            datefmt='%Y/%m/%d %H:%M:%S',
+#                            level=logLevel)
     
     def initWidgetManager(self):
         self.wm = WidgetManager()
