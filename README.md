@@ -8,7 +8,7 @@ Realtime server monitoring application
 
 ### Preview
 
-![screenshot](http://i.imgur.com/pvBu4.png)
+![screenshot](http://i.imgur.com/yPpSVPi.png)
 
 ### How it works?
 
