@@ -2,8 +2,8 @@ Realtime server monitoring application
 
 ### Quick start
 
-1. requirements `sudo easy_install tornado`
-2. customize `config.json`
+1. install requirements `sudo easy_install tornado`
+2. customize `config.yml`
 3. run `python aboco.py`
 
 ### Preview
